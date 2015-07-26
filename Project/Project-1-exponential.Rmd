@@ -52,6 +52,12 @@ Given our simulation parameter of lambda=`r Lambda`, the theoretical mean is `r 
 
 In our simulation today the sample mean is `r mean (expos)`, which differs from theoretical by `r mean (expos) - 1/Lambda`.
 
-# Sample and Theoretical Variances
+# Theoretical and Sample Variances
+
+The CLT predicts that the variance of the mean of `n` samples from a distribution with variance $\sigma^2$ will be $\sigma^2 / n$.
+An exponential distribution with rate $\lambda$ has a variance of $\sigma^2 = \lambda^{-2}$.
+Given our simulation parameter of lambda=`r Lambda` and sample size of `r Aggregation`, the theoretical variance for our simulation is `r 1 / Lambda / Lambda / Aggregation`.
+
+The simulation today has a sample variance of `r sd (expos) ^ 2`.
 
 # Distribution
