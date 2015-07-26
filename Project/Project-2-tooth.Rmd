@@ -7,7 +7,7 @@ output: pdf_document
 
 # Fetch the teeth
 
-```{r echo=TRUE, eval=TRUE, warning=FALSE, fig.height=4}
+```{r echo=TRUE, eval=TRUE, warning=FALSE, fig.height=3}
 data (ToothGrowth)
 
 summary (as.factor (ToothGrowth$dose))
