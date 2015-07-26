@@ -31,20 +31,45 @@ We do not assume equal variance.
 
 Data are not paired. These are 60 distinct subjects, randomized and unrelated.
 
-First, effect of supp on len:
+## Effect of supp on len
 
 ```{r echo=TRUE, eval=TRUE}
 t.test (len ~ supp, ToothGrowth)$conf.int
 ```
 
-Effect of dose is a bit trickier; we need to split out the three cases by hand.
+Conclusion: at 95% confidence, supp cannot be said to affect len, because the confidence interval of the difference in means includes zero.
+
+## Effect of dose on len
+
+This is a bit trickier; we need to split out the three cases by hand.
 
 ```{r echo=TRUE, eval=TRUE}
 tg05 = ToothGrowth$len[ToothGrowth$dose < 1]
 tg10 = ToothGrowth$len[ToothGrowth$dose == 1]
 tg20 = ToothGrowth$len[ToothGrowth$dose > 1]
+```
 
+Having preprocessed the data, let's look for effects. First, dose=0.5 vs. dose=1.0:
+
+```{r echo=TRUE, eval=TRUE}
 t.test (tg05, tg10)$conf.int
+```
+
+That difference shows a significant effect at 95%.
+
+Now, dose=0.5 vs. dose=2.0:
+
+```{r echo=TRUE, eval=TRUE}
 t.test (tg05, tg20)$conf.int
+```
+
+
+This difference is significant at 95%.
+
+Finally, dose=1.0 vs. dose=2.0:
+
+```{r echo=TRUE, eval=TRUE}
 t.test (tg10, tg20)$conf.int
 ```
+
+This is significant at 95% as well.
