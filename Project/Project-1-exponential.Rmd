@@ -9,19 +9,41 @@ output: pdf_document
 
 # Overview
 
+By the Central Limit Theorem (CLT) we expect "that the distribution of averages of iid variables becomes that of a standard normal as the sample size increases" [Caffo, *Statistical Inference for Data Science,* leanpub.com, retrieved 2015].
+We illustrate the CLT through a simulation with averages of random values drawn from an exponential distribution.
+
 # Simulations
+
+## Define parameters
+
+The assignment specifies values for the size and composition of the simulated data.
+Here are those values in R:
+
+```{r eval=TRUE, echo=TRUE}
+Aggregation <- 40
+Samples <- 1000
+Lambda <- 0.2
+```
 
 ## Create simulated data set
 
-```Aggregation <- 40
-Samples <- 1000
-Lambda <- 0.2
+This code is remarkably similar to that presented in the project assignment and in Lecture 7.
 
+```{r eval=TRUE, echo=TRUE}
 expos <- NULL
 for (i in 1:Samples)
   expos = c (expos,
              mean (rexp (Aggregation,
-                         rate=Lambda)))```
+                         rate=Lambda)))
+```
+
+The result does indeed look more Gaussian than exponential:
+
+```{r eval=TRUE, echo=FALSE}
+hist (expos)
+```
+
+Let's investigate that further.
 
 # Sample and Theoretical Means
 
