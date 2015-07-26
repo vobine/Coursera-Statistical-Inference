@@ -7,6 +7,8 @@ output: pdf_document
 
 # Fetch the teeth
 
+Load data on tooth growth, and generate summaries of its properties.
+
 ```{r echo=TRUE, eval=TRUE, warning=FALSE, fig.height=3}
 data (ToothGrowth)
 
@@ -17,7 +19,11 @@ library (ggplot2)
 gg <- ggplot (ToothGrowth)
 print (gg + geom_histogram (aes (x=len),
                             binwidth=3))
+```
 
+Here is a quick visual peek, with violin plots, at the effects of dose and supp on len:
+
+```{r echo=TRUE, eval=TRUE, warning=FALSE, fig.height=3}
 print (gg + geom_violin (aes (x=factor (dose), 
                               y=len)))
 
@@ -27,8 +33,8 @@ print (gg + geom_violin (aes (x=supp,
 
 # Look for simple effects
 
+We assume that the data are approximately normal, that is, normal enough for the t-test to work. This assumption is not contradicted by the plots above.
 We do not assume equal variance.
-
 Data are not paired. These are 60 distinct subjects, randomized and unrelated.
 
 ## Effect of supp on len
