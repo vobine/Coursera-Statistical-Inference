@@ -1,0 +1,14 @@
+---
+title: "Tooth Growth"
+author: "Hal Peterson"
+date: "July 26, 2015"
+output: pdf_document
+---
+
+# Preliminaries
+
+Fetch the teeth.
+
+```{r echo=TRUE, eval=TRUE}
+data (ToothGrowth)
+```
