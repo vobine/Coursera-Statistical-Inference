@@ -28,6 +28,8 @@ Lambda <- 0.2
 ## Create simulated data set
 
 This code is remarkably similar to that presented in the project assignment and in Lecture 7.
+For each of `r Samples` samples, we generate `r Aggregation` values from an exponential distribution with parameter `r Lambda`.
+The results compose our simulated data set.
 
 ```{r eval=TRUE, echo=TRUE}
 expos <- NULL
@@ -39,9 +41,11 @@ emu <- mean (expos)
 esd <- sd (expos)
 ```
 
-The result does indeed look more Gaussian than exponential:
+## Simulation output summary
 
-```{r eval=TRUE, echo=TRUE, warning=FALSE}
+The result does indeed look more normal than exponential:
+
+```{r eval=TRUE, echo=TRUE, warning=FALSE, fig.height=4}
 library (ggplot2)
 gg <- ggplot (data.frame (x=expo), aes (x=x))
 gg <- gg + geom_histogram (alpha=.2, 
@@ -61,35 +65,37 @@ gg <- gg + geom_vline (xintercept=emu + esd, linetype=4)
 print (gg)
 ```
 
-Let's investigate that further.
+Let's investigate the properties of the data further.
 
 # Theoretical and Sample Means
 
 By the Law of Large Numbers (LLN), we expect the mean of samples drawn from a random distribution to asymptotically approach the theoretical mean. For an exponential distribution, the theoretical mean is 1/lambda.
-Given our simulation parameter of lambda=`r Lambda`, the theoretical mean is `r 1/Lambda`.
+Given our simulation parameter of lambda=`r Lambda`, the theoretical mean of a single exponential is `r 1/Lambda`, and the theoretical mean of the average of 40 (or $n$) exponentials is also `r 1/Lambda`.
 
 In our simulation today the sample mean is `r mean (expos)`, indicated on the plot by a solid vertical line.
 This differs from theoretical by `r mean (expos) - 1/Lambda`.
 
 # Theoretical and Sample Variances
 
-The CLT predicts that the variance of the mean of `n` samples from a distribution with variance $\sigma^2$ will be $\sigma^2 / n$.
+The CLT predicts that the variance of the mean of $n$ samples from a distribution with variance $\sigma^2$ will be $\sigma^2 / n$.
 An exponential distribution with rate $\lambda$ has a variance of $\sigma^2 = \lambda^{-2}$.
 Given our simulation parameter of lambda=`r Lambda` and sample size of `r Aggregation`, the theoretical variance for our simulation is `r 1 / Lambda / Lambda / Aggregation`.
 
 The simulation today has a sample variance of `r sd (expos) ^ 2`.
 Two vertical dot-dash lines in the plot are plus-or-minus one standard deviation from the mean.
+This differs from the theoretical value by
+`r sd (expos) ^ 2 - 1 / Lambda / Lambda / Aggregation`.
 
 # Distribution
 
-Those are the parameters, but is it Gaussian? And does it tend toward Gaussian with increasing samples per average?
+Those are the parameters, but is it normal? And does it tend toward normal with increasing samples per average?
 
 First, note the previous plot, which overlays a normal distribution on the histogram of simulated data.
 The data matches well with the normal distribution (blue curve), and not at all with the exponential (red curve), as predicted by CLT.
 
 For comparison, here are two simulated distributions, one as before with averages of 40 exponentials, another of values drawn directly from an exponential distribution.
 
-```{r echo=TRUE, eval=TRUE}
+```{r echo=TRUE, eval=TRUE, fig.height=4}
 gg <- ggplot (data.frame (x1=expo,
                           x2=rexp (1000, rate=Lambda)))
 gg <- gg + geom_histogram (alpha=.2, 
