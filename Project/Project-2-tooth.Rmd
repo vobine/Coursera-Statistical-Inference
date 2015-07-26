@@ -5,10 +5,22 @@ date: "July 26, 2015"
 output: pdf_document
 ---
 
-# Preliminaries
+# Fetch the teeth
 
-Fetch the teeth.
-
-```{r echo=TRUE, eval=TRUE}
+```{r echo=TRUE, eval=TRUE, warning=FALSE}
 data (ToothGrowth)
+
+summary (as.factor (ToothGrowth$dose))
+summary (ToothGrowth$supp)
+
+library (ggplot2)
+gg <- ggplot (ToothGrowth)
+print (gg + geom_histogram (aes (x=len),
+                            binwidth=3))
+
+print (gg + geom_violin (aes (x=factor (dose), 
+                              y=len)))
+
+print (gg + geom_violin (aes (x=supp,
+                              y=len)))
 ```
