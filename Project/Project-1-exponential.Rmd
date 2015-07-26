@@ -35,12 +35,30 @@ for (i in 1:Samples)
   expos = c (expos,
              mean (rexp (Aggregation,
                          rate=Lambda)))
+emu <- mean (expos)
+esd <- sd (expos)
 ```
 
 The result does indeed look more Gaussian than exponential:
 
-```{r eval=TRUE, echo=FALSE}
-hist (expos)
+```{r eval=TRUE, echo=TRUE, warning=FALSE}
+library (ggplot2)
+gg <- ggplot (data.frame (x=expo), aes (x=x))
+gg <- gg + geom_histogram (alpha=.2, 
+                           binwidth=.2,
+                           aes (y=..density..))
+gg <- gg + stat_function (fun=dnorm, 
+                          arg=list (mean=emu, sd=esd),
+                          linetype=2,
+                          color="blue")
+gg <- gg + stat_function (fun=dexp, 
+                          arg=list (rate=1/emu),
+                          linetype=3,
+                          color="red")
+gg <- gg + geom_vline (xintercept=emu, linetype=1)
+gg <- gg + geom_vline (xintercept=emu - esd, linetype=4)
+gg <- gg + geom_vline (xintercept=emu + esd, linetype=4)
+print (gg)
 ```
 
 Let's investigate that further.
@@ -61,3 +79,5 @@ Given our simulation parameter of lambda=`r Lambda` and sample size of `r Aggreg
 The simulation today has a sample variance of `r sd (expos) ^ 2`.
 
 # Distribution
+
+Those are the parameters, but is it Gaussian? And does it tend toward Gaussian with increasing samples per average?
