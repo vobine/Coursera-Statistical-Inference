@@ -45,7 +45,12 @@ hist (expos)
 
 Let's investigate that further.
 
-# Sample and Theoretical Means
+# Theoretical and Sample Means
+
+By the Law of Large Numbers (LLN), we expect the mean of samples drawn from a random distribution to asymptotically approach the theoretical mean. For an exponential distribution, the theoretical mean is 1/lambda.
+Given our simulation parameter of lambda=`r Lambda`, the theoretical mean is `r 1/Lambda`.
+
+In our simulation today the sample mean is `r mean (expos)`, which differs from theoretical by `r mean (expos) - 1/Lambda`.
 
 # Sample and Theoretical Variances
 
